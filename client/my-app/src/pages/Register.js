@@ -5,6 +5,7 @@ import Wrapper from "../assets/wrappers/RegisterPage";
 import Alert from "../components/Alert";
 import { useAppContext } from "../context/appContext";
 
+
 const initialState = {
   name: "",
   email: "",
@@ -27,15 +28,14 @@ const Register = () => {
   };
 
   const onSubmit = (e) => {
-    console.log('xxxx')
     e.preventDefault();
-    console.log('xxxx')
-    const { name, email, password, isMember } = values;
-    if (!email || !password )  {
+    const { name, email, password, showAlert,isMember } = values;
+    if (!email || !password) {
+      //console.log(e.target);
       displayAlert();
       return
     }
-    
+
   };
   return (
     <Wrapper className="full-page">
@@ -43,8 +43,8 @@ const Register = () => {
         <Logo />
         <h3>{values.isMember ? "Login" : "Register"}</h3>
 
-         <Alert />
-        
+        {showAlert && <Alert />}
+
         {/*  email*/}
         <FormRow
           type="text"
@@ -54,15 +54,15 @@ const Register = () => {
         />
         {/*  pass*/}
         <FormRow
-           type='password'
+          type='password'
           name="password"
           value={values.password}
           handleChange={handleChange}
         />
-        <button type="submit" className="btn btn-block" onClick={onSubmit}>
+        <button type="submit" className="btn btn-block" >
           Submit
         </button>
-        
+
       </form>
     </Wrapper>
   );

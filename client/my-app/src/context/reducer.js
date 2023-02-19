@@ -1,11 +1,23 @@
 import { DISPLAY_ALERT } from "./actions";
+import { CLEAR_ALERT } from "./actions";
 
 const reducer = (state, action) => {
 
     if (action.type === DISPLAY_ALERT) {
         return {
             ...state,
-            showAlert: true, alertType: 'danger', alertText: 'Please provide all values!',
+            showAlert: true, 
+            alertType: 'danger',
+            alertText: 'Please provide all values!',
+        }
+    }
+
+    if (action.type === CLEAR_ALERT) {
+        return {
+            ...state,
+            showAlert: false, 
+            alertType: 'danger',
+            alertText: 'Please provide all values!',
         }
     }
 

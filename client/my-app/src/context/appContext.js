@@ -1,13 +1,13 @@
-import { useState, useReducer,useContext } from "react"
+import { useState, useReducer, useContext } from "react"
 import React from "react";
 import reducer from "./reducer";
 import { DISPLAY_ALERT } from "./actions";
-
+import { CLEAR_ALERT } from "./actions";
 
 const initialState = {
     isLoading: false,
     showAlert: false,
-    alertText: '', 
+    alertText: '',
     alertType: '',
 
 }
@@ -15,19 +15,27 @@ const initialState = {
 
 const AppContext = React.createContext()
 
-const AppProvider = ({children}) => {
+const AppProvider = ({ children }) => {
 
-
-    const [state, setState] = useReducer(reducer,initialState);
+   
+    const [state, dispatch] = useReducer(reducer, initialState);
 
     const displayAlert = () => {
-        dispatchEvent({type:DISPLAY_ALERT})
+        dispatch({ type: DISPLAY_ALERT })
+        console.log('Show thong bao')
+        clearAlert()
     }
 
-    return <AppContext.Provider value={{...state}}>{children}</AppContext.Provider>
+    const clearAlert = () => {
+        setTimeout(() => {
+            dispatchEvent({ type: CLEAR_ALERT })
+        }, 3000)
+    }
+
+    return (<AppContext.Provider value={{ ...state,displayAlert }}>{children}</AppContext.Provider>)
 }
 const useAppContext = () => {
-    return useContext(AppContext);
-  };
+    return useContext(AppContext)
+}
 
-export { AppProvider, initialState,useAppContext};
+export { AppProvider, initialState, useAppContext };
